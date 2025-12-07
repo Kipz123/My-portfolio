@@ -36,11 +36,13 @@ public class BlogController {
 
     @PostMapping
     public Blog createBlog(@RequestParam("title") String title,
-                           @RequestParam("content") String content,
-                           @RequestParam("author") String author,
-                           @RequestParam("image") MultipartFile image) {
-        
-        String imagePath = fileStorageService.storeFile(image);
+            @RequestParam("content") String content,
+            @RequestParam("author") String author,
+            @RequestParam("image") MultipartFile image) {
+
+        String fileName = fileStorageService.storeFile(image);
+        // Store the web-accessible path
+        String imagePath = "/uploads/" + fileName;
 
         Blog blog = new Blog();
         blog.setTitle(title);
